@@ -1,13 +1,13 @@
 //
 //  AppDelegate.m
-//  TestWaxPod
+//  BlockExample
 //
-//  Created by junzhan on 15/10/15.
+//  Created by junzhan on 15/12/29.
 //  Copyright © 2015年 test.jz.com. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "wax.h"
+#import <wax/wax.h>
 @interface AppDelegate ()
 
 @end
@@ -17,8 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    wax_start(nil, nil);
-    int i = wax_runLuaString("print('hello wax')");
+    wax_startWithNil();
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"BlockExample" ofType:@"lua"];
+    int i = wax_runLuaFile(path.UTF8String);
     if(i){
         NSLog(@"error=%s", lua_tostring(wax_currentLuaState(), -1));
     }
